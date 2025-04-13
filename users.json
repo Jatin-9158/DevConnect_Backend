@@ -1,0 +1,278 @@
+[
+  {
+    "_id": "67fa6f19fa016a6b22ae0611",
+    "firstName": "Alia",
+    "lastName": "Jain",
+    "emailId": "alia.jain@gmail.com",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 22,
+    "gender": "Male",
+    "photoURL": "https://cdn-icons-png.flaticon.com/256/432/432693.png",
+    "about": "Passionate about full-stack development and building scalable web apps.",
+    "skills": [
+      "JavaScript",
+      "React",
+      "Node.js"
+    ],
+    "createdAt": "",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae0612",
+    "firstName": "Virat",
+    "lastName": "Kohli",
+    "emailId": "virat.kohli@cricket.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 35,
+    "gender": "Male",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Virat_Kohli_in_2018.jpg",
+    "about": "Indian cricketer, recognized as one of the best batsmen in the world.",
+    "skills": [
+      "Cricket",
+      "Batting",
+      "Fielding"
+    ],
+    "createdAt": "",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae0613",
+    "firstName": "Priyanka",
+    "lastName": "Chopra",
+    "emailId": "priyanka.chopra@actor.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 42,
+    "gender": "Female",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/3/34/Priyanka_Chopra_at_the_2020_SAG_Awards.jpg",
+    "about": "Actress, singer, and philanthropist, known for her work in Bollywood and Hollywood.",
+    "skills": [
+      "Acting",
+      "Singing",
+      "Philanthropy"
+    ],
+    "createdAt": "",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae0614",
+    "firstName": "Shah",
+    "lastName": "Rukh",
+    "emailId": "shahrukh.khan@actor.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 58,
+    "gender": "Male",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Shah_Rukh_Khan_in_2017.jpg",
+    "about": "King of Bollywood with a career spanning over three decades.",
+    "skills": [
+      "Acting",
+      "Film Production"
+    ],
+    "createdAt": "",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae0615",
+    "firstName": "Deepika",
+    "lastName": "Padukone",
+    "emailId": "deepika.padukone@actor.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 38,
+    "gender": "Female",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/8/80/Deepika_Padukone_in_2018.jpg",
+    "about": "Top Bollywood actress known for her roles in 'Padmaavat' and 'Chennai Express'.",
+    "skills": [
+      "Acting",
+      "Dancing"
+    ],
+    "createdAt": "2010-05-12T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae0616",
+    "firstName": "Rohit",
+    "lastName": "Sharma",
+    "emailId": "rohit.sharma@cricket.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 36,
+    "gender": "Male",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Rohit_Sharma_in_2019.jpg",
+    "about": "Indian cricketer, known for his powerful batting and being one of the best openers.",
+    "skills": [
+      "Cricket",
+      "Batting"
+    ],
+    "createdAt": "2011-06-23T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae0617",
+    "firstName": "Sachin",
+    "lastName": "Tendulkar",
+    "emailId": "sachin.tendulkar@cricket.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 50,
+    "gender": "Male",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/7/73/Sachin_Tendulkar_at_2011_World_Cup.jpg",
+    "about": "Legendary Indian cricketer, often considered the greatest batsman of all time.",
+    "skills": [
+      "Cricket",
+      "Batting",
+      "Fielding"
+    ],
+    "createdAt": "",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae0618",
+    "firstName": "Morgan",
+    "lastName": "Freeman",
+    "emailId": "morgan.freeman@actor.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 87,
+    "gender": "Male",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Morgan_Freeman_by_Gage_Skidmore.jpg",
+    "about": "Academy Award-winning actor known for roles in 'Shawshank Redemption' and 'Million Dollar Baby'.",
+    "skills": [
+      "Acting",
+      "Directing"
+    ],
+    "createdAt": "2010-09-20T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae0619",
+    "firstName": "Scarlett",
+    "lastName": "Johansson",
+    "emailId": "scarlett.johansson@actor.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 40,
+    "gender": "Female",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Scarlett_Johansson_in_2016.jpg",
+    "about": "Hollywood actress known for roles in 'Black Widow' and 'Lost in Translation'.",
+    "skills": [
+      "Acting",
+      "Singing"
+    ],
+    "createdAt": "2010-07-10T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae061a",
+    "firstName": "Leonardo",
+    "lastName": "DiCaprio",
+    "emailId": "leonardo.dicaprio@actor.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 50,
+    "gender": "Male",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Leonardo_DiCaprio_2016.jpg",
+    "about": "Academy Award-winning actor known for roles in 'Titanic' and 'Inception'.",
+    "skills": [
+      "Acting",
+      "Producing"
+    ],
+    "createdAt": "2010-07-17T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae061b",
+    "firstName": "Selena",
+    "lastName": "Gomez",
+    "emailId": "selena.gomez@actor.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 32,
+    "gender": "Female",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Selena_Gomez_2019.jpg",
+    "about": "Actress and singer, best known for her role in 'Wizards of Waverly Place' and her music career.",
+    "skills": [
+      "Acting",
+      "Singing"
+    ],
+    "createdAt": "2010-12-17T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae061c",
+    "firstName": "Zendaya",
+    "lastName": "",
+    "emailId": "zendaya@actor.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 27,
+    "gender": "Female",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/8/87/Zendaya_2019.jpg",
+    "about": "Known for her roles in 'Euphoria' and 'Spider-Man: No Way Home'.",
+    "skills": [
+      "Acting",
+      "Singing"
+    ],
+    "createdAt": "2020-01-05T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae061d",
+    "firstName": "Michael",
+    "lastName": "Jordan",
+    "emailId": "michael.jordan@basketball.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 60,
+    "gender": "Male",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Michael_Jordan_in_2014.jpg",
+    "about": "Retired NBA player, widely regarded as the greatest basketball player of all time.",
+    "skills": [
+      "Basketball",
+      "Coaching"
+    ],
+    "createdAt": "2010-11-15T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae061e",
+    "firstName": "Taylor",
+    "lastName": "Swift",
+    "emailId": "taylor.swift@music.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 35,
+    "gender": "Female",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Taylor_Swift_in_2019.jpg",
+    "about": "Known for her successful music career and her album '1989'.",
+    "skills": [
+      "Singing",
+      "Songwriting"
+    ],
+    "createdAt": "2010-03-03T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae061f",
+    "firstName": "Beyoncé",
+    "lastName": "",
+    "emailId": "beyonce@music.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 42,
+    "gender": "Female",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Beyonce_2018.jpg",
+    "about": "Global pop sensation known for her music and social activism.",
+    "skills": [
+      "Singing",
+      "Dancing"
+    ],
+    "createdAt": "2010-03-03T00:00:00.000Z",
+    "updatedAt": ""
+  },
+  {
+    "_id": "67fa6f19fa016a6b22ae0620",
+    "firstName": "Elton",
+    "lastName": "John",
+    "emailId": "elton.john@music.in",
+    "password": "$2b$10$u7zALz69EL9GIiLVT9jrruXMq4uesGWcC3sYzI8Si.iq4SFzutsXG",
+    "age": 76,
+    "gender": "Male",
+    "photoURL": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Elton_John_2019.jpg",
+    "about": "Legendary musician and philanthropist, famous for hits like 'Rocket Man' and 'Your Song'.",
+    "skills": [
+      "Singing",
+      "Piano"
+    ],
+    "createdAt": "2010-04-21T00:00:00.000Z",
+    "updatedAt": ""
+  }
+]
