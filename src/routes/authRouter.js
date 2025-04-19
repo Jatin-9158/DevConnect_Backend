@@ -6,6 +6,7 @@ const { validateSignUpData, validationLoginData } = require("../utils/validation
 
 const authRouter = express.Router();
 
+// LOGIN ROUTE
 authRouter.post("/login", async (req, res) => {
   try {
     const validationResult = validationLoginData(req);
@@ -43,6 +44,7 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
+// SIGNUP ROUTE
 authRouter.post("/signup", async (req, res) => {
   try {
     const validationResult = validateSignUpData(req);
@@ -50,7 +52,7 @@ authRouter.post("/signup", async (req, res) => {
       return res.status(validationResult.status).json({ message: validationResult.message });
     }
 
-    const { firstName, lastName, emailId, password, age,gender } = req.body;
+    const { firstName, lastName, emailId, password, age, gender } = req.body;
 
     const passwordHash = await bcrypt.hash(password, 10);
 
@@ -60,23 +62,30 @@ authRouter.post("/signup", async (req, res) => {
       emailId,
       password: passwordHash,
       age,
-      gender
+      gender,
     });
 
     await newUser.save();
 
     return res.status(201).json({
       message: "User Account Created Successfully!!",
-      data: newUser,
+      data: {
+        firstName,
+        lastName,
+        emailId,
+        age,
+        gender,
+      },
     });
   } catch (err) {
     if (err.code === 11000) {
-      return res.status(409).json({ message: "User already exists with same emailId" });
+      return res.status(409).json({ message: "User already exists with the same emailId" });
     }
     return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
+// LOGOUT ROUTE
 authRouter.post("/logout", (req, res) => {
   res.cookie("token", null, {
     expires: new Date(Date.now()),

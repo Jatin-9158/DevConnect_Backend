@@ -2,11 +2,12 @@ const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const User = require("../models/user");
 const ConnectionRequest = require("../models/connectionRequest");
-
 const userRouter = express.Router();
+const natural = require("natural");
+const TfIdf = natural.TfIdf;
+
 const USER_SAFE_DATA = "firstName lastName photoURL gender age about skills";
 
-// ✅ GET: Received Connection Requests
 userRouter.get("/user/requests/received", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
@@ -61,15 +62,60 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
   }
 });
 
-// ✅ GET: User Feed (People you can connect with)
+const getSkillOverlap = (skillsA, skillsB) => {
+  const setA = new Set(skillsA || []);
+  const setB = new Set(skillsB || []);
+  return [...setA].filter(skill => setB.has(skill)).length;
+};
+
+const isDefaultAbout = (about) => {
+  const defaults = [
+    "hi", "hello", "i'm new", "i am new", "hi there", "just joined", "default", "development is not everyone's cup of tea"
+  ];
+  const normalized = (about || "").toLowerCase().trim();
+  const matches = defaults.some(d => normalized.includes(d));
+  return normalized.length < 10 || matches;
+};
+
+const getCosineSimilarity = (vecA, vecB) => {
+  const allTerms = new Set([...Object.keys(vecA), ...Object.keys(vecB)]);
+  const terms = [...allTerms];
+
+  const vectorA = terms.map(term => vecA[term] || 0);
+  const vectorB = terms.map(term => vecB[term] || 0);
+
+  const dotProduct = vectorA.reduce((acc, value, index) => acc + value * vectorB[index], 0);
+  const magnitudeA = Math.sqrt(vectorA.reduce((acc, value) => acc + value * value, 0));
+  const magnitudeB = Math.sqrt(vectorB.reduce((acc, value) => acc + value * value, 0));
+
+  if (magnitudeA === 0 || magnitudeB === 0) return 0;
+
+  return dotProduct / (magnitudeA * magnitudeB);
+};
+
 userRouter.get("/user/feed", userAuth, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     let limit = parseInt(req.query.limit) || 10;
-    limit = limit > 50 ? 50 : limit; // Max 50
+    limit = limit > 50 ? 50 : limit;
     const skip = (page - 1) * limit;
 
     const loggedInUser = req.user;
+    const currentUser = await User.findById(loggedInUser._id).select(USER_SAFE_DATA);  
+
+    if (!currentUser) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const tipMessages = [];
+
+    if (isDefaultAbout(currentUser.about)) {
+      tipMessages.push("Write a more detailed 'about' section to help us recommend better connections.");
+    }
+
+    if (!currentUser.skills || currentUser.skills.length === 0) {
+      tipMessages.push("Add a few skills to improve skill-based recommendations.");
+    }
 
     const connections = await ConnectionRequest.find({
       $or: [
@@ -79,25 +125,78 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
     }).select("fromUserId toUserId");
 
     const excludedUserIds = new Set([
-      ...connections.map((conn) => conn.fromUserId.toString()),
-      ...connections.map((conn) => conn.toUserId.toString()),
+      ...connections.map(conn => conn.fromUserId.toString()),
+      ...connections.map(conn => conn.toUserId.toString()),
       loggedInUser._id.toString(),
     ]);
-    
 
-    const users = await User.find({ _id: { $nin: [...excludedUserIds] } })
-      .select(USER_SAFE_DATA)
-      .skip(skip)
-      .limit(limit)
-      .lean();
+    const candidates = await User.find({
+      _id: { $nin: [...excludedUserIds] },
+      about: { $exists: true },
+      age: { $exists: true },
+      skills: { $exists: true },
+    }).select(USER_SAFE_DATA).lean();  // Use the string here
+
+    const tfidf = new TfIdf();
+    tfidf.addDocument(currentUser.about || "");
+
+    const scoredUsers = candidates.map((user) => {
+      tfidf.addDocument(user.about || "");
+      const vecA = tfidf.listTerms(0).reduce((acc, term) => {
+        acc[term.term] = term.tfidf;
+        return acc;
+      }, {});
+      const vecB = tfidf.listTerms(1).reduce((acc, term) => {
+        acc[term.term] = term.tfidf;
+        return acc;
+      }, {});
+
+      const aboutSim = getCosineSimilarity(vecA, vecB) || 0;
+      tfidf.documents.pop();
+
+      const ageDiff = Math.abs(currentUser.age - user.age);
+      const ageScore = 1 - Math.min(ageDiff / 30, 1);
+
+      const genderScore = currentUser.gender === user.gender ? 1 : 0;
+
+      const skillOverlap = getSkillOverlap(currentUser.skills, user.skills);
+      const skillScore = Math.min(skillOverlap / 5, 1);
+
+      const totalScore = (
+        0.4 * aboutSim +
+        0.2 * ageScore +
+        0.2 * skillScore +
+        0.2 * genderScore
+      );
+
+      return {
+        ...user,
+        score: totalScore
+      };
+    });
+
+    const sortedUsers = scoredUsers
+      .sort((a, b) => b.score - a.score)
+      .slice(skip, skip + limit);
+
+    const usersWithoutScore = sortedUsers.map(user => {
+      const { score, ...userWithoutScore } = user;
+      return userWithoutScore;
+    });
 
     return res.status(200).json({
-      message: "Users Fetched Successfully",
-      data: users
+      message: "Recommended Users Fetched Successfully",
+      tip: tipMessages.length > 0 ? tipMessages.join(" ") : undefined,
+      data: usersWithoutScore
     });
+
   } catch (err) {
+    console.error(err);
     return res.status(500).json({ message: err.message || "Something went wrong" });
   }
 });
+
+
+
 
 module.exports = userRouter;

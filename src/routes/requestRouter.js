@@ -6,7 +6,7 @@ const ConnectionRequest = require("../models/connectionRequest");
 
 const requestRouter = express.Router();
 
-// ✅ Send Connection Request
+// Route to send connection request with 'interested' or 'ignored' status
 requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res) => {
   try {
     const fromUserId = req.user._id;
@@ -58,7 +58,7 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
   }
 });
 
-// ✅ Review Received Connection Request (Accept / Reject)
+// Route to review the connection request (accepted or rejected)
 requestRouter.post("/request/review/:status/:requestId", userAuth, async (req, res) => {
   try {
     const reviewStatus = req.params.status.toLowerCase();
@@ -84,6 +84,8 @@ requestRouter.post("/request/review/:status/:requestId", userAuth, async (req, r
     }
 
     connectionRequest.status = reviewStatus;
+
+
     const updatedRequest = await connectionRequest.save();
 
     return res.status(200).json({
