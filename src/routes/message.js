@@ -27,9 +27,10 @@ msgRouter.get('/last-message/:userId', userAuth, async (req, res) => {
 
     return res.status(200).json({
       message: lastMessage.content,
+      type:lastMessage.type,
     });
   } catch (err) {
-    console.error('Error fetching last message:', err);
+   
     return res.status(500).json({ message: 'Internal server error' });
   }
 });
@@ -48,7 +49,7 @@ msgRouter.get("/:userId/:targetUserId",  userAuth,async (req,res) => {
       .lean();
     res.status(200).json({ data: messages });
   } catch (error) {
-    console.error("Error fetching messages", error);
+   
     res.status(500).json({ message: "Failed to fetch messages" });
   }
 });

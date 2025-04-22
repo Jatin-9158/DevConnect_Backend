@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken")
 const cookieParser = require('cookie-parser');
 const cors = require("cors")
 require('dotenv').config();
+require("./utils/cronjob")
 const app = express();
 const { connectDB } = require('./config/database');
 const User = require("./models/user");
@@ -28,12 +29,16 @@ const profileRouter=require("./routes/profileRouter")
 const requestRouter=require("./routes/requestRouter")
 const userRouter = require("./routes/userRouter");
 const otpRouter = require("./routes/otpRouter")
+const uploadRouter = require("./routes/uploadRouter")
+app.use("/", require("./routes/geminiRouter"));
+
 app.use("/",authRouter)
 app.use("/",profileRouter)
 app.use("/",requestRouter)
 app.use("/",userRouter)
 app.use("/messages", messageRoutes);
 app.use("/",otpRouter)
+app.use("/",uploadRouter)
 const server = http.createServer(app);
 initializeSocket(server)
 
@@ -51,7 +56,7 @@ app.post("/upload", upload.single("image"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No file uploaded" });
   }
-  const imageUrl = `${process.env.SERVER_URL || "http://localhost:5000"}/uploads/${req.file.filename}`;
+  const imageUrl = `${process.env.SERVER_URL || "http://localhost:3000"}/uploads/${req.file.filename}`;
   res.json({ url: imageUrl });
 });
 connectDB().then(()=>{

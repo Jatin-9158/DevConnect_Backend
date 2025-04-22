@@ -3,7 +3,7 @@ const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const User = require("../models/user");
 const ConnectionRequest = require("../models/connectionRequest");
-
+const {sendCustomEmail} = require("../utils/sendEmail")
 const requestRouter = express.Router();
 
 // Route to send connection request with 'interested' or 'ignored' status
@@ -47,8 +47,24 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
       toUserId,
       status
     });
+    const subject = "You've received a new connection interest on DevConnect";
+    const html = `
+  <div style="font-family: Arial, sans-serif; padding: 24px; border: 1px solid #e0e0e0; border-radius: 8px;">
+    <p style="font-size: 16px;">
+      <strong>${req.user.firstName}</strong> has shown interest in connecting with you on <strong>DevConnect</strong>.
+    </p>
+    <p style="margin: 16px 0;">
+      You can view their profile and choose to respond or connect back.
+    </p>
+    <p style="margin-top: 24px; font-size: 12px; color: #666;">
+      If you’re not sure why you received this message, feel free to ignore it.
+    </p>
+    <footer style="margin-top: 20px; font-size: 12px; color: #888;">DevConnect Team</footer>
+  </div>
+`;
 
     const savedRequest = await connectionRequest.save();
+    await sendCustomEmail({to:isValidUser.emailId,subject,html})
     return res.status(201).json({
       message: `${req.user.firstName} marked ${isValidUser.firstName} as '${status}' successfully.`,
       data: savedRequest
@@ -58,7 +74,7 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
   }
 });
 
-// Route to review the connection request (accepted or rejected)
+
 requestRouter.post("/request/review/:status/:requestId", userAuth, async (req, res) => {
   try {
     const reviewStatus = req.params.status.toLowerCase();

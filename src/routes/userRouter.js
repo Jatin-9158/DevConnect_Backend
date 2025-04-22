@@ -5,9 +5,9 @@ const ConnectionRequest = require("../models/connectionRequest");
 const userRouter = express.Router();
 const natural = require("natural");
 const TfIdf = natural.TfIdf;
-
+const validator = require('validator');
 const USER_SAFE_DATA = "firstName lastName photoURL gender age about skills";
-
+const {sendCustomEmail} = require("../utils/sendEmail")
 userRouter.get("/user/requests/received", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
@@ -135,7 +135,7 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
       about: { $exists: true },
       age: { $exists: true },
       skills: { $exists: true },
-    }).select(USER_SAFE_DATA).lean();  // Use the string here
+    }).select(USER_SAFE_DATA).lean();  
 
     const tfidf = new TfIdf();
     tfidf.addDocument(currentUser.about || "");
@@ -191,9 +191,43 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
     });
 
   } catch (err) {
-    console.error(err);
+
     return res.status(500).json({ message: err.message || "Something went wrong" });
   }
+});
+userRouter.post('/feedback', async (req, res) => {
+   try{
+    const { emailId, feedback } = req.body;
+    if (!validator.isEmail(emailId)) {
+      throw new Error('Please enter a valid email address.');
+    }
+    if (feedback.trim().length === 0) {
+      throw new Error('Feedback cannot be empty.');
+    }
+    if (feedback.trim().length > 500) {
+      throw new Error('Feedback is too long. Please keep it under 500 characters.');
+    }
+    await sendCustomEmail({
+      to: emailId,
+      subject: 'Thank You for Your Feedback on DevConnect!',
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #333;">
+          <h2 style="color: #6366f1;">Hey there 👋,</h2>
+          <p>Thank you for taking the time to share your feedback with us! 💬</p>
+          <p>We truly appreciate your input and will use it to improve DevConnect continuously.</p>
+          <p>If you ever have more thoughts or ideas, don't hesitate to reach out.</p>
+          <br/>
+          <p>Warm regards,</p>
+          <p><strong>The DevConnect Team</strong></p>
+        </div>
+      `
+    });
+    
+    return res.status(200).json({ message: 'Feedback received' });
+   }
+   catch(err){
+     return res.status(200).json({message: err.message || "Something went wrong"})
+   }
 });
 
 
