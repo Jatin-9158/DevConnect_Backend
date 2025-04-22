@@ -14,7 +14,7 @@ const getSecretRoomId = (userId, targetUserId) => {
 const initializeSocket = (server) => {
   const io = require("socket.io")(server, {
     cors: {
-      origin: "http://localhost:5173", 
+      origin: "http://13.60.96.174", 
       methods: ["GET", "POST"],
       credentials: true,
     },
@@ -90,7 +90,7 @@ const initializeSocket = (server) => {
       try {
         const roomId = getSecretRoomId(userId, targetUserId);
         socket.to(roomId).emit("typing", { userId });
-        console.log("Yo");
+   
       } catch (error) {
 
       }

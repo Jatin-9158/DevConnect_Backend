@@ -58,7 +58,7 @@ cron.schedule("0 6 * * *", async () => {
       await sendCustomEmail({ to: email, subject, html });
     }
 
-    console.log(`Reminder emails sent to ${emails.length} users.`);
+ 
   } catch (err) {
     console.error("Error in cron job:", err.message);
   }

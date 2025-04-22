@@ -5,8 +5,6 @@ const User = require("../models/user");
 const ConnectionRequest = require("../models/connectionRequest");
 const {sendCustomEmail} = require("../utils/sendEmail")
 const requestRouter = express.Router();
-
-// Route to send connection request with 'interested' or 'ignored' status
 requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res) => {
   try {
     const fromUserId = req.user._id;
