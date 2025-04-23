@@ -19,7 +19,7 @@ msgRouter.get('/last-message/:userId', userAuth, async (req, res) => {
       ],
     })
       .sort({ timestamp: -1 })
-      .select('content senderId targetUserId timestamp');
+      .select('content senderId targetUserId timestamp type');
 
     if (!lastMessage) {
       return res.status(200).json({ message: 'Create a new conversation to engage with new connections.         ' });

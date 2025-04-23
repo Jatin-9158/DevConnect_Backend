@@ -1,6 +1,9 @@
 const crypto = require("crypto");
 const Message = require('../models/message');
-
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://16.171.169.200"
+];
 const getSecretRoomId = (userId, targetUserId) => {
   if (!userId || !targetUserId) {
     throw new Error("userId and targetUserId are required");
@@ -14,7 +17,13 @@ const getSecretRoomId = (userId, targetUserId) => {
 const initializeSocket = (server) => {
   const io = require("socket.io")(server, {
     cors: {
-      origin: "http://13.60.96.174", 
+      origin: (incomingOrigin, callback) => {
+        if (!incomingOrigin || allowedOrigins.includes(incomingOrigin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"), false);
+        }
+      },
       methods: ["GET", "POST"],
       credentials: true,
     },

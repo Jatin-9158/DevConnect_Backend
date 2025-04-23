@@ -12,7 +12,7 @@ const http = require("http")
 const initializeSocket = require("./utils/socket")
 const messageRoutes = require("./routes/message");
 app.use(cors({
-  origin: 'http://13.60.96.174',
+  origin: 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], 
   allowedHeaders: ['Content-Type', 'Authorization'], 
   credentials: true 
